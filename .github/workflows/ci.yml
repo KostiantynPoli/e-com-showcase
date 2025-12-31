@@ -1,0 +1,41 @@
+name: Deploy Nuxt 3 to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # или другая ветка, с которой деплой
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Клонируем репозиторий
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2️⃣ Устанавливаем Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # 3️⃣ Устанавливаем зависимости
+      - name: Install dependencies
+        run: npm ci
+
+      # 4️⃣ Собираем Nuxt 3
+      - name: Build Nuxt
+        run: npm run build
+
+      # 5️⃣ Генерируем статический сайт
+      - name: Generate static files
+        run: npm run generate
+
+      # 6️⃣ Деплой на GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v7
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .output/public
