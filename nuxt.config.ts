@@ -15,6 +15,14 @@ export default defineNuxtConfig({
     css: [
         '~/assets/css/tailwind.css', // если есть кастомный css
     ],
+    build: {
+        transpile: [],
+    },
+    vite: {
+        css: {
+            preprocessorOptions: {}
+        }
+    },
 
     compatibilityDate: '2025-12-28',
 })
