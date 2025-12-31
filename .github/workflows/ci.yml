@@ -27,10 +27,20 @@ jobs:
       # 4️⃣ Строим проект Nuxt 3
       - name: Build Nuxt
         run: npm run build
+        env:
+          SALES_DOUBLER_BASE_URL: ${{ secrets.SALES_DOUBLER_BASE_URL }}
+          AFFILIATE_API_KEY: ${{ secrets.AFFILIATE_API_KEY }}
+          E_COM_CATEGORY_ID: ${{ secrets.E_COM_CATEGORY_ID }}
+          OFFER_PER_PAGE: ${{ secrets.OFFER_PER_PAGE}}
 
       # 5️⃣ Экспортируем статику (если используешь target: 'static')
       - name: Generate static files
-        run: npm run generate # или 'nuxt generate' если у тебя скрипт не переименован
+        run: npm run generate
+        env:
+          SALES_DOUBLER_BASE_URL: ${{ secrets.SALES_DOUBLER_BASE_URL }}
+          AFFILIATE_API_KEY: ${{ secrets.AFFILIATE_API_KEY }}
+          E_COM_CATEGORY_ID: ${{ secrets.E_COM_CATEGORY_ID }}
+          OFFER_PER_PAGE: ${{ secrets.OFFER_PER_PAGE}}
 
       # 6️⃣ Деплой на GitHub Pages
       - name: Deploy to GitHub Pages
