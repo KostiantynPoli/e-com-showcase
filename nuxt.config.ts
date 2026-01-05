@@ -1,4 +1,6 @@
 export default defineNuxtConfig({
+    ssr: true,
+
     // Runtime Config
     runtimeConfig: {
         salesDoublerBaseUrl: process.env.SALES_DOUBLER_BASE_URL,
