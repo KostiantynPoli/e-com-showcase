@@ -3,10 +3,12 @@ export default defineNuxtConfig({
 
     // Runtime Config
     runtimeConfig: {
+        public: {
+            offerPerPage: Number(process.env.OFFER_PER_PAGE) || 10,
+        },
         salesDoublerBaseUrl: process.env.SALES_DOUBLER_BASE_URL,
         salesDoublerToken: process.env.AFFILIATE_API_KEY,
         salesDoublerCategory: Number(process.env.E_COM_CATEGORY_ID),
-        offerPerPage: Number(process.env.OFFER_PER_PAGE),
     },
 
     // Модули
@@ -14,19 +16,22 @@ export default defineNuxtConfig({
         '@nuxtjs/tailwindcss',
     ],
 
-    // CSS (если кастомного нет, оставляем пустым)
-    css: [],
-
-    // Nitro target: static для GitHub Pages
-    nitro: {
-        preset: 'static',
-    },
+    // CSS: кастомного нет
+    css: ['~/assets/css/tailwind.css'],
 
     // Tailwind
     tailwindcss: {
-        // configPath: 'tailwind.config.js', // если кастомный
-        // cssPath: '~/assets/css/tailwind.css', // можно создать, если нужны кастомные стили
-        viewer: false, // отключаем viewer в CI
+        viewer: false,
+    },
+
+    // Nitro preset
+    nitro: {
+        preset: process.env.VERCEL ? 'vercel' : 'static', // для GitHub Pages используем static
+    },
+
+    // Базовый URL для GitHub Pages
+    app: {
+        baseURL: '/e-com-showcase/',
     },
 
     build: {
@@ -34,13 +39,7 @@ export default defineNuxtConfig({
     },
 
     vite: {
-        css: {
-            preprocessorOptions: {},
-        },
-    },
-
-    app: {
-        baseURL: '/e-com-showcase/', // Важно для GitHub Pages!
+        css: {},
     },
 
     compatibilityDate: '2025-12-28',
